@@ -13,6 +13,7 @@ import './css/animations.css';
 
 import Order from './pages/order/order';
 import HomePage from './pages/homepage/HomePage';
+import Checkout from './pages/checkout/checkout';
 
 import { imagesLoaded } from './redux/imageSlice';
 
@@ -22,6 +23,7 @@ function App() {
     ready ? (
       <Router>
         <Routes>
+          <Route path="/checkout" element={<Checkout />} loading />
           <Route path="/order/*" element={<Order />} loading />
           <Route path="/" element={<HomePage />} loading />
           <Route path="/*" element={<Navigate replace to="/" />} loading />
