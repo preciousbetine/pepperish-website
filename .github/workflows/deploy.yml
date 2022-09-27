@@ -17,9 +17,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm run build
-    - run: cd build/static/css
-    - run: rm *.map
-    - run: cd ..
-    - run: cd js
-    - run: rm *.map
+    - run: cd build/js
     - run: ls
