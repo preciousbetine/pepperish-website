@@ -13,6 +13,7 @@ import './css/animations.css';
 
 import Order from './pages/order/order';
 import HomePage from './pages/homepage/HomePage';
+import Contact from './pages/contact/contact';
 import Checkout from './pages/checkout/checkout';
 import Finished from './pages/finished/finished';
 
@@ -24,6 +25,7 @@ function App() {
     ready ? (
       <Router>
         <Routes>
+          <Route path="/contact" element={<Contact />} />
           <Route path="/finished" element={<Finished />} />
           <Route path="/checkout" element={<Checkout />} loading />
           <Route path="/order/*" element={<Order />} loading />
