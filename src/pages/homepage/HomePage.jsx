@@ -189,7 +189,6 @@ function App() {
                 ponmo delivered to you.
                 <br />
                 Free delivery, fast delivery.
-                Test
               </h1>
               <p className="margin-top-1-sm font-size-7-sm text-center-sm text-muted margin-top-1 font-size-2 fw-normal">
                 Our peppered ponmo comes with a
