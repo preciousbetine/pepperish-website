@@ -181,14 +181,14 @@ function App() {
                 <br />
                 ponmo delivered to you.
                 <br />
-                Free delivery, fast delivery.
+                Free and fast delivery.
               </h1>
               <h1 className="d-none-sm font-gilroy font-size-2-sm letter-spacing-0 line-height-3 font-size-7">
                 Peppery and tasty
                 <br />
                 ponmo delivered to you.
                 <br />
-                Free delivery, fast delivery.
+                Free and fast delivery.
               </h1>
               <p className="margin-top-1-sm font-size-7-sm text-center-sm text-muted margin-top-1 font-size-2 fw-normal">
                 Our peppered ponmo comes with a
