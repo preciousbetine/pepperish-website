@@ -1,0 +1,12 @@
+
+.btn-change-product:hover, .btn-change-product:focus {
+  background: rgb(220, 200, 145) !important;
+}
+
+.btn-change-quantity:hover, .btn-change-quantity:focus {
+  background: rgb(190, 29, 29) !important;
+}
+
+.btn-cart:hover, .btn-cart:focus {
+  background: rgb(190, 29, 29) !important;
+}
