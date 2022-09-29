@@ -45,6 +45,7 @@ export default function Checkout() {
     'Ayobo - Ipaja',
     'Egbeda - Isheri',
     'Egbeda - Iyana Ipaja',
+    'Ejigbo',
     'Governor\'s road',
     'Idimu - NNPC',
     'Ikotun - Igando',
