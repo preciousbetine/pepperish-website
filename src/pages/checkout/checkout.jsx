@@ -128,20 +128,26 @@ export default function Checkout() {
       }
     } else if (paymentPlatform === 'paystack') {
       if (res.status === 'success') {
-        result = await fetch('https://pepperish.com.ng/confirmOrder', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            response: res,
-            orderId,
-            platform: 'paystack',
-          }),
-        });
+        result = { success: false };
+        while (!result.success) {
+          // eslint-disable-next-line no-await-in-loop
+          result = await fetch('https://pepperish.com.ng/confirmOrder', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              response: res,
+              orderId,
+              platform: 'paystack',
+            }),
+          });
+          // eslint-disable-next-line no-await-in-loop
+          result = await result.json();
+          if (result.error) break;
+        }
       }
     }
-    result = await result.json();
 
     dispatch(setTransactionRef(res.reference || res.transaction_id));
     if (result.error) {
@@ -163,9 +169,14 @@ export default function Checkout() {
       email,
       amount: (amount1 * price1 + amount2 * price2) * 100,
       currency: 'NGN',
+      metadata: {
+        orderId,
+      },
+      first_name: firstName,
+      last_name: lastName,
+      phone,
       onClose: () => {
         if (email === 'admin@pepperish.ng') setEmail('');
-        // cancel order at backend
       },
       callback: (res) => {
         processPayment(res);
