@@ -32,7 +32,7 @@ export default function Checkout() {
   const [firstName, setFirstName] = useState(localStorage.getItem('form-first-name') || '');
   const [lastName, setLastName] = useState(localStorage.getItem('form-last-name') || '');
   const [phone, setPhone] = useState(localStorage.getItem('form-phone') || '');
-  const [influencerCode, setInfluencerCode] = useState('');
+  const [influencerCode, setInfluencerCode] = useState(localStorage.getItem('influencerCode') || '');
   const [email, setEmail] = useState(localStorage.getItem('form-email') || '');
   const [address, setAddress] = useState(localStorage.getItem('form-address') || '');
   const [route, setRoute] = useState(localStorage.getItem('form-route') || '');
