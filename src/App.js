@@ -25,6 +25,7 @@ function App() {
     ready ? (
       <Router>
         <Routes>
+          <Route path="/i/*" element={<HomePage link />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/finished" element={<Finished />} />
           <Route path="/checkout" element={<Checkout />} loading />

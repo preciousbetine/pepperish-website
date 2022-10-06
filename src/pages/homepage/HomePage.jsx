@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   product1Amount,
   product2Amount,
@@ -17,7 +18,7 @@ import swipeDetect from './swipe';
 import './HomePage.css';
 import { images } from '../../redux/imageSlice';
 
-function App() {
+function App(props) {
   const price1 = useSelector(PRICE1);
   const price2 = useSelector(PRICE2);
   const amount1 = useSelector(product1Amount);
@@ -25,6 +26,7 @@ function App() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const media = useSelector(images);
 
@@ -32,6 +34,13 @@ function App() {
 
   useEffect(
     () => {
+      // Check for influencers' code
+      const { link } = props;
+      if (link) {
+        const referralCode = location.pathname.split('/')[2];
+        localStorage.setItem('influencerCode', referralCode);
+      }
+
       const faders = document.querySelectorAll('.fade-in');
       const quickFaders = document.querySelectorAll('.fade-in-quick');
       const sliders = document.querySelectorAll('.slide-in');
@@ -580,5 +589,13 @@ function App() {
     </div>
   );
 }
+
+App.propTypes = {
+  link: PropTypes.string,
+};
+
+App.defaultProps = {
+  link: '',
+};
 
 export default App;
