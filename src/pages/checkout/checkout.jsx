@@ -40,27 +40,39 @@ export default function Checkout() {
   const [paymentPlatform, setPaymentPlatform] = useState('paystack');
   const [loading, setLoading] = useState(false);
   const [orderId, setOrderId] = useState(0);
-  const routes = [
+  const [routes, setRoutes] = useState([]);
+  const [deliveryFee, setDeliveryFee] = useState(0);
+
+  const alimoshoRoutes = [
     'Akowonjo',
-    'Ayobo - Ipaja',
-    'Egbeda - Isheri',
-    'Egbeda - Iyana Ipaja',
-    'Ejigbo',
-    'Governor\'s road',
-    'Idimu - NNPC',
-    'Ikotun - Igando',
-    'Ikotun - Ijegun',
-    'Isheri - Igando',
-    'Isheri - Ikotun',
-    'Liasu road',
-    'Mosholashi - Abesan',
-    'Unity Estate',
+    'Ayobo',
+    'Egbe',
+    'Egbeda',
+    'Idimu',
+    'Igando',
+    'Ikotun',
+    'Isheri',
+    'Iyana Ipaja',
   ];
+  const ikejaRoutes = [
+    'Agidingbi',
+    'Akiodo',
+    'Alausa',
+    'GRA',
+    'Magodo',
+    'Maryland',
+    'Ogba',
+    'Ojodu',
+    'Opebi',
+    'Oregun',
+  ];
+  const [lga, setLGA] = useState(localStorage.getItem('form-lga') || 'alimosho');
 
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 250);
+    setRoutes(lga === 'alimosho' ? alimoshoRoutes : ikejaRoutes);
   }, []);
 
   const validateEmail = (e) => String(e)
@@ -167,7 +179,7 @@ export default function Checkout() {
       key: 'pk_live_ff1bd979ae4915ed4605b98c3046aa5361bfe61e',
       // key: 'pk_test_85e012167787ab43a91b770d075f4c289b92d04c',
       email,
-      amount: (amount1 * price1 + amount2 * price2) * 100,
+      amount: (amount1 * price1 + amount2 * price2 + deliveryFee) * 100,
       currency: 'NGN',
       metadata: {
         orderId,
@@ -190,7 +202,7 @@ export default function Checkout() {
     const modal = FlutterwaveCheckout({
       public_key: 'FLWPUBK_TEST-41534f515798c437ec3a158faa779db7-X',
       tx_ref: `pepperish_payment_ref${txNum}`,
-      amount: (amount1 * price1 + amount2 * price2),
+      amount: (amount1 * price1 + amount2 * price2 + deliveryFee),
       currency: 'NGN',
       payment_options: 'card, mobilemoneyghana, ussd',
       customer: {
@@ -274,6 +286,7 @@ export default function Checkout() {
     localStorage.setItem('form-phone', phone);
     localStorage.setItem('form-email', email);
     localStorage.setItem('form-address', address);
+    localStorage.setItem('form-lga', lga);
 
     setFirstName(firstName.trim());
     setLastName(lastName.trim());
@@ -330,6 +343,10 @@ export default function Checkout() {
   };
 
   useEffect(() => {
+    setDeliveryFee(lga === 'ikeja' ? 500 : 0);
+  });
+
+  useEffect(() => {
     if (orderId !== 0) {
       setLoading(false);
       if (paymentPlatform === 'paystack') payWithPaystack();
@@ -342,6 +359,23 @@ export default function Checkout() {
       document.getElementById('orderButton').click();
     }, 1000);
     navigate('/');
+  };
+
+  const routeChanged = (e) => {
+    switch (e.target.checked) {
+      case true:
+        setLGA('ikeja');
+        setRoutes(ikejaRoutes);
+        setDeliveryFee(500);
+        break;
+      case false:
+        setLGA('alimosho');
+        setRoutes(alimoshoRoutes);
+        setDeliveryFee(0);
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -711,6 +745,21 @@ export default function Checkout() {
               </label>
               <label htmlFor="route" className="padding-style-16 width-100 margin-top-5 padding-style-21">
                 Route *
+                <div className="py-3">
+                  <div className="d-flex align-items-center">
+                    <p className="">Alimosho</p>
+                    <label htmlFor="toggleSwitch" className="switch">
+                      <input
+                        id="toggleSwitch"
+                        type="checkbox"
+                        onChange={routeChanged}
+                        checked={lga === 'ikeja'}
+                      />
+                      <span className="slider" />
+                    </label>
+                    <p className="">Ikeja</p>
+                  </div>
+                </div>
                 <select id="route" className="padding-style-9-sm border-pack-3 outline-0 padding-style-17 margin-top-5 width-100 rounded-3" onChange={inputChanged} defaultValue={route || 'none'}>
                   <option value="none" disabled hidden>&nbsp;</option>
                   {
@@ -741,7 +790,9 @@ export default function Checkout() {
                   <span>
                     <i className="fa-solid fa-naira-sign margin-right-4" />
                   </span>
-                  <div>0</div>
+                  <div>
+                    {deliveryFee}
+                  </div>
                 </div>
                 <div className="d-flex width-100 justify-content-between align-items-center">
                   <span>Amount to pay</span>
@@ -749,7 +800,9 @@ export default function Checkout() {
                   <span>
                     <i className="fa-solid fa-naira-sign margin-right-4" />
                   </span>
-                  <div>{Number(amount1 * price1 + amount2 * price2).toLocaleString()}</div>
+                  <div>
+                    {Number(amount1 * price1 + amount2 * price2 + deliveryFee).toLocaleString()}
+                  </div>
                 </div>
               </div>
               <div className="d-flex flex-column align-items-center justify-content-center padding-style-18">

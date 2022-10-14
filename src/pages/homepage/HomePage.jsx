@@ -190,14 +190,14 @@ function App(props) {
                 <br />
                 ponmo delivered to you.
                 <br />
-                Free and fast delivery.
+                Fast delivery.
               </h1>
               <h1 className="d-none-sm font-gilroy font-size-2-sm letter-spacing-0 line-height-3 font-size-7">
                 Peppery and tasty
                 <br />
                 ponmo delivered to you.
                 <br />
-                Free and fast delivery.
+                Fast delivery.
               </h1>
               <p className="margin-top-1-sm font-size-7-sm text-center-sm text-muted margin-top-1 font-size-2 fw-normal">
                 Our peppered ponmo comes with a
@@ -223,7 +223,7 @@ function App(props) {
               Delivery is from 11am to 6pm everyday
               <br />
               <i className="fa-solid fa-star me-2 margin-right-2 color-light-brown" />
-              Available only in Alimosho LGA
+              Available only in Alimosho and Ikeja.
             </p>
           </div>
           <div className="d-none-sm flex-style-1 d-flex justify-content-end align-items-center">
