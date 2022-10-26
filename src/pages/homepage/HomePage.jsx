@@ -499,7 +499,7 @@ function App(props) {
               </div>
               <div className="text-center">
                 <h2 className="margin-top-1-sm font-size-13-sm font-size-4 margin-top-1">
-                  Free&nbsp;delivery
+                  Fast&nbsp;delivery
                 </h2>
               </div>
               <div className="d-flex-sm d-none align-items-center width-100 flex-column my-4">

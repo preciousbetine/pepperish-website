@@ -40,7 +40,6 @@ export default function Checkout() {
   const [paymentPlatform, setPaymentPlatform] = useState('paystack');
   const [loading, setLoading] = useState(false);
   const [orderId, setOrderId] = useState(0);
-  const [routes, setRoutes] = useState([]);
   const [deliveryFee, setDeliveryFee] = useState(0);
 
   const alimoshoRoutes = [
@@ -72,7 +71,6 @@ export default function Checkout() {
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 250);
-    setRoutes(lga === 'alimosho' ? alimoshoRoutes : ikejaRoutes);
   }, []);
 
   const validateEmail = (e) => String(e)
@@ -106,6 +104,10 @@ export default function Checkout() {
       }
       case 'address': {
         setAddress(e.target.value);
+        break;
+      }
+      case 'lga': {
+        setLGA(e.target.value);
         break;
       }
       case 'route': {
@@ -344,7 +346,7 @@ export default function Checkout() {
 
   useEffect(() => {
     setDeliveryFee(lga === 'ikeja' ? 500 : 0);
-  });
+  }, [lga]);
 
   useEffect(() => {
     if (orderId !== 0) {
@@ -359,23 +361,6 @@ export default function Checkout() {
       document.getElementById('orderButton').click();
     }, 1000);
     navigate('/');
-  };
-
-  const routeChanged = (e) => {
-    switch (e.target.checked) {
-      case true:
-        setLGA('ikeja');
-        setRoutes(ikejaRoutes);
-        setDeliveryFee(500);
-        break;
-      case false:
-        setLGA('alimosho');
-        setRoutes(alimoshoRoutes);
-        setDeliveryFee(0);
-        break;
-      default:
-        break;
-    }
   };
 
   return (
@@ -743,27 +728,20 @@ export default function Checkout() {
                 Email
                 <input id="email" value={email} maxLength={50} onChange={inputChanged} className="padding-style-9-sm border-pack-3 outline-0 padding-style-17 margin-top-5 width-100 rounded-3" />
               </label>
+              <label htmlFor="lga" className="padding-style-16 width-100 margin-top-5 padding-style-21">
+                LGA *
+                <select id="lga" className="padding-style-9-sm border-pack-3 outline-0 padding-style-17 margin-top-5 width-100 rounded-3" onChange={inputChanged} defaultValue={lga || 'none'}>
+                  <option value="alimosho">Alimosho</option>
+                  <option value="ikeja">Ikeja</option>
+                </select>
+              </label>
               <label htmlFor="route" className="padding-style-16 width-100 margin-top-5 padding-style-21">
                 Route *
-                <div className="py-3">
-                  <div className="d-flex align-items-center">
-                    <p className="">Alimosho</p>
-                    <label htmlFor="toggleSwitch" className="switch">
-                      <input
-                        id="toggleSwitch"
-                        type="checkbox"
-                        onChange={routeChanged}
-                        checked={lga === 'ikeja'}
-                      />
-                      <span className="slider" />
-                    </label>
-                    <p className="">Ikeja</p>
-                  </div>
-                </div>
                 <select id="route" className="padding-style-9-sm border-pack-3 outline-0 padding-style-17 margin-top-5 width-100 rounded-3" onChange={inputChanged} defaultValue={route || 'none'}>
                   <option value="none" disabled hidden>&nbsp;</option>
                   {
-                    routes.map((a) => <option className="padding-style-17" key={a}>{a}</option>)
+                    lga === 'ikeja' ? ikejaRoutes.map((a) => <option className="padding-style-17" key={a}>{a}</option>)
+                      : alimoshoRoutes.map((a) => <option className="padding-style-17" key={a}>{a}</option>)
                   }
                 </select>
               </label>
