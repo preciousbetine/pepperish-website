@@ -14,7 +14,7 @@
     - The info section
     - The footer section
   
-  The header section contains basic site introduction iniformation and a product video.
+  The header section contains basic site introduction information and a product video.
   The products section displays the products available and allows users add or remove items from their cart.
   The info section comprises of the 'How pepperish works' page and the 'Mobile app' page.
   The footer section contains the page footer.
