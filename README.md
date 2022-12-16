@@ -5,7 +5,8 @@
 - Redux
 - React Router
 - APIs
-- CSS (Bootstrap)
+- CSS (w/Bootstrap)
+- Github Actions (FTP Deploy on Push)
 
 ### The Homepage
   The homepage consists of four sections:
@@ -91,3 +92,10 @@
     orderId - a unique integer ID generated for the particular order
     platform - a string that holds the platform used to make the payment eg. 'paystack' or 'flutterwave'
   }
+  
+## Preview
+![pepperish_screenshot](https://user-images.githubusercontent.com/56425107/208171645-8a59ba74-05fa-4c50-a497-fb3bee08ab2c.PNG)
+
+
+[Live Link](https://pepperish.ng/)
+
